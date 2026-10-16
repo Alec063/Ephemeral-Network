@@ -1,39 +1,20 @@
-# Ephemeral Network — website starter
+# Ephemeral Network — player accounts update
 
-This is a responsive, dark-themed static website starter for a Minecraft network.
+This version retains the existing homepage and live server status and adds `account.html` with Supabase Auth email/password registration, email confirmation, login, password reset, sign out, and a basic dashboard.
 
-## Run it on your computer
-1. Extract the ZIP.
-2. Open the `ephemeral-network-starter` folder.
-3. Double-click `index.html` to preview it in your browser.
-4. Edit the text and links in `index.html`; edit colors/layout in `styles.css`.
+## REQUIRED: configure the public key
 
-## Before publishing
-Search `index.html` for these placeholders:
-- `play.yourserver.net` — replace with the real Minecraft server address.
-- `data-placeholder-link` — replace `href="#"` with your real Discord/forum links.
-- Planned game modes and coming-soon copy — update to match what is actually live.
+1. In Supabase find **Project URL** (Settings → Data API or Connect) and **Publishable key** (Settings → API Keys).
+2. Edit `supabase-config.js` and replace `PASTE_PROJECT_URL_HERE` and `PASTE_PUBLISHABLE_KEY_HERE` with the actual values, keeping quotes.
+3. Use ONLY the public `sb_publishable_...` key. Never upload `service_role`, `sb_secret_...`, JWT secrets, or database passwords.
+4. In Supabase Authentication → URL Configuration set Site URL to `https://alec063.github.io/Ephemeral-Network/` and add BOTH redirect URLs `https://alec063.github.io/Ephemeral-Network/` and `https://alec063.github.io/Ephemeral-Network/account.html`. The second is required for confirmation and password reset links.
+5. In Authentication → Providers → Email, enable email authentication and keep email confirmation enabled. Supabase's built-in email service may have delivery/rate limits; configure custom SMTP before inviting many players.
+6. Upload all site files to the **root** of the existing GitHub repository (the `main` branch), replacing matching files. Do not upload the ZIP as a file.
+7. Wait for GitHub Pages deployment, then visit `https://alec063.github.io/Ephemeral-Network/account.html`.
+8. Test using your own email address, verify email, sign in, sign out, and password reset.
 
-## Publish free with GitHub Pages
-1. Create/sign in to a GitHub account at https://github.com/
-2. Create a new public repository named `ephemeral-network` (or another name).
-3. Upload `index.html`, `styles.css`, `script.js`, and `README.md` to the repository root.
-4. Open the repository's **Settings → Pages**.
-5. Under build/deployment, choose **Deploy from a branch**, select `main` and `/ (root)`, then save.
-6. Wait for GitHub Pages to publish. Your site will have a `github.io` address.
-7. Open that address and test it on desktop and mobile.
+## Security / scope
 
-## Important feature limits
-This starter is a static front-end. It does **not** yet have real user registration/login, persistent forums, admin publishing, player counts, or payment processing. Do not collect passwords or payment information in this static site.
+This version uses Supabase's managed auth. It does NOT create a public profile database table or any custom database policies. The dashboard displays the authenticated email only. **Minecraft account linking is NOT yet implemented.** The future in-game `/link` flow must be verified server-side with a trusted Minecraft plugin and secure backend; never trust a username submitted by a browser. Do not store passwords in your own database.
 
-Recommended next steps:
-- Use a managed authentication/database service for accounts, with secure rules and email verification.
-- Add a forum/community platform or a backend with moderation, spam controls, and reporting.
-- Use a reputable Minecraft server store provider for purchases and rank delivery; configure payment and server permissions securely.
-- Keep payment processing on the store provider's hosted checkout rather than handling card details yourself.
-
-The page currently uses Google Fonts from an external CDN. If you want no external requests, remove the `@import` line at the top of `styles.css` and it will use system fonts.
-
-
-## Connected server status
-The public Java server address is `ephemeral.kinetic.host`. The home page copies this address and queries `https://api.mcstatus.io/v2/status/java/ephemeral.kinetic.host` to show online/offline and player count, refreshing every 60 seconds. The API is external and may have its own caching or temporary outages; UNKNOWN means the status could not be checked, not necessarily that the server is offline. This is a static-site integration and requires no server credentials.
+If you later add tables, explicitly grant only needed API access and define/test Row Level Security policies before making them accessible.
