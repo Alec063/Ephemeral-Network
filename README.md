@@ -33,3 +33,7 @@ Recommended next steps:
 - Keep payment processing on the store provider's hosted checkout rather than handling card details yourself.
 
 The page currently uses Google Fonts from an external CDN. If you want no external requests, remove the `@import` line at the top of `styles.css` and it will use system fonts.
+
+
+## Connected server status
+The public Java server address is `ephemeral.kinetic.host`. The home page copies this address and queries `https://api.mcstatus.io/v2/status/java/ephemeral.kinetic.host` to show online/offline and player count, refreshing every 60 seconds. The API is external and may have its own caching or temporary outages; UNKNOWN means the status could not be checked, not necessarily that the server is offline. This is a static-site integration and requires no server credentials.

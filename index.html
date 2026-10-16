@@ -9,7 +9,7 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <div class="announcement-bar"><span class="pulse"></span> NETWORK STATUS: <strong>COMING SOON</strong><span class="bar-divider">/</span> YOUR NEXT ADVENTURE AWAITS</div>
+  <div class="announcement-bar"><span class="pulse"></span> NETWORK STATUS: <strong id="networkStatus">CHECKING...</strong><span class="bar-divider">/</span> YOUR NEXT ADVENTURE AWAITS</div>
   <header class="site-header">
     <a class="brand" href="#home" aria-label="Ephemeral Network home">
       <span class="brand-mark">E</span>
@@ -33,7 +33,8 @@
           <button class="button button-primary" id="copyIp">Copy Server IP <span>⧉</span></button>
           <a class="button button-ghost" href="#modes">Explore Game Modes <span>↓</span></a>
         </div>
-        <div class="server-address"><span class="status-dot"></span><span class="muted">JAVA EDITION</span><code id="serverIp">play.yourserver.net</code><span class="placeholder-label">PLACEHOLDER</span></div>
+        <div class="server-address"><span class="status-dot"></span><span class="muted">JAVA EDITION</span><code id="serverIp">ephemeral.kinetic.host</code></div>
+        <div class="live-server-status" aria-live="polite"><span id="serverStatusText">Checking server status...</span><span id="serverPlayerCount">Players: — / —</span></div>
       </div>
       <div class="hero-art" role="img" aria-label="Abstract purple and blue pixel-inspired landscape">
         <div class="orb orb-one"></div><div class="orb orb-two"></div>
